@@ -8,16 +8,15 @@ const api = axios.create({
 });
 
 // Auth API
-export const registerUser = (data) => api.post('/auth/register', data);
-export const verifyOTP = (data) => api.post('/auth/verify-otp', data);
-export const googleLogin = (data) => api.post('/auth/google', data);
-export const logoutUser = () => api.post('/auth/logout');
-export const getMe = () => api.get('/auth/me').then(res => res.data.data);
+export const registerUser = (data) => api.post('/api/auth/register', data);
+export const verifyOTP = (data) => api.post('/api/auth/verify-otp', data);
+export const googleLogin = (data) => api.post('/api/auth/google', data);
+export const logoutUser = () => api.post('/api/auth/logout');
+export const getMe = () => api.get('/api/auth/me').then(res => res.data.data);
 
 // Notes API
-export const getNotes = () => api.get('/notes').then(res => res.data);
-export const createNote = (data) => api.post('/notes', data).then(res => res.data);
-export const updateNote = (id, data) => api.put(`/notes/${id}`, data).then(res => res.data);
-export const deleteNote = (id) => api.delete(`/notes/${id}`).then(res => res.data);
+export const getNotes = () => api.get('/api/notes').then(res => res.data);
+export const createNote = (data) => api.post('/api/notes', data).then(res => res.data);
+export const updateNote = (id, data) => api.put(`/api/notes/${id}`, data).then(res => res.data);
+export const deleteNote = (id) => api.delete(`/api/notes/${id}`).then(res => res.data);
 
-export default api;
