@@ -13,13 +13,13 @@ export default function Dashboard() {
   const { user } = useAuth();
 
   useEffect(() => {
-    fetchNotes();
-  }, []);
+    if (user) fetchNotes();
+  }, [user]);
 
   const fetchNotes = async () => {
     try {
-      const response = await getNotes();
-      setNotes(response.data);
+      const notesData = await getNotes(); // API already returns res.data
+      setNotes(notesData);
     } catch (error) {
       setAlert({ type: 'error', message: 'Failed to fetch notes' });
     }
@@ -31,8 +31,8 @@ export default function Dashboard() {
 
     setLoading(true);
     try {
-      const response = await createNote(newNote);
-      setNotes([response.data, ...notes]);
+      const note = await createNote(newNote); // API returns res.data
+      setNotes([note, ...notes]);
       setNewNote({ title: '', content: '' });
       setAlert({ type: 'success', message: 'Note created successfully' });
     } catch (error) {
@@ -44,8 +44,8 @@ export default function Dashboard() {
 
   const handleUpdateNote = async (note) => {
     try {
-      const updatedData = await updateNote(note._id, note);
-      setNotes(notes.map((n) => (n._id === updatedData.data._id ? updatedData.data : n)));
+      const updatedNote = await updateNote(note._id, note); // API returns res.data
+      setNotes(notes.map((n) => (n._id === updatedNote._id ? updatedNote : n)));
       setAlert({ type: 'success', message: 'Note updated successfully' });
     } catch (error) {
       setAlert({ type: 'error', message: 'Failed to update note' });
@@ -64,9 +64,9 @@ export default function Dashboard() {
 
   const handlePinNote = async (note) => {
     try {
-      const updatedData = await updateNote(note._id, { isPinned: !note.isPinned });
-      setNotes(notes.map((n) => (n._id === updatedData.data._id ? updatedData.data : n)));
-      setAlert({ type: 'success', message: updatedData.data.isPinned ? 'Note pinned' : 'Note unpinned' });
+      const updatedNote = await updateNote(note._id, { isPinned: !note.isPinned });
+      setNotes(notes.map((n) => (n._id === updatedNote._id ? updatedNote : n)));
+      setAlert({ type: 'success', message: updatedNote.isPinned ? 'Note pinned' : 'Note unpinned' });
     } catch (error) {
       setAlert({ type: 'error', message: 'Failed to pin/unpin note' });
     }
