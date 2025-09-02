@@ -13,9 +13,9 @@ export default function Header() {
 
   const handleLogout = async () => {
     try {
-      await logoutUser()    // Call backend to clear cookie
-      setUser(null)         // Clear user from context
-      window.location.href = '/login' // Redirect to login page to prevent 401s
+      await logoutUser()    
+      setUser(null)         
+      window.location.href = '/login'
     } catch (error) {
       console.error('Logout error:', error)
     }
