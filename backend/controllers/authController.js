@@ -108,7 +108,7 @@ export const verifyOTP = async (req, res) => {
       res.cookie('token', token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
+        sameSite: 'none',   // ✅ allow cross-origin cookies
         maxAge: 7 * 24 * 60 * 60 * 1000
       });
       return res.status(200).json({
@@ -153,7 +153,7 @@ export const verifyOTP = async (req, res) => {
       res.cookie('token', token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
+        sameSite: 'none',   // ✅ allow cross-origin cookies
         maxAge: 7 * 24 * 60 * 60 * 1000
       });
 
@@ -207,7 +207,7 @@ export const googleLogin = async (req, res) => {
     res.cookie('token', jwtToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
+      sameSite: 'none',   // ✅ allow cross-origin cookies
       maxAge: 7 * 24 * 60 * 60 * 1000
     });
 
@@ -232,7 +232,9 @@ export const logout = async (req, res) => {
   try {
     res.cookie('token', '', {
       httpOnly: true,
-      expires: new Date(0)
+      expires: new Date(0),
+      sameSite: 'none',
+      secure: process.env.NODE_ENV === 'production'
     });
 
     res.status(200).json({ message: 'Logged out successfully' });
