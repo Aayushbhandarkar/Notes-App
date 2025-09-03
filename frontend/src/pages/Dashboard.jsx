@@ -72,6 +72,7 @@ export default function Dashboard() {
     }
   };
 
+  // Define pinned and unpinned notes
   const pinnedNotes = notes.filter((note) => note.isPinned);
   const otherNotes = notes.filter((note) => !note.isPinned);
 
@@ -158,7 +159,7 @@ export default function Dashboard() {
           <h2 className="text-xl font-bold text-gray-900 mb-4 sm:mb-6 flex items-center gap-2">
             <span className="text-xl">📝</span> All Notes
           </h2>
-          {notes.length === 0 ? (
+          {otherNotes.length === 0 ? (
             <div className="text-center py-12 sm:py-16 bg-white rounded-xl sm:rounded-2xl shadow">
               <div className="text-gray-400 mb-4">
                 <svg className="mx-auto h-12 w-12 sm:h-14 sm:w-14" fill="none" viewBox="0 0 24 24" stroke="currentColor">
