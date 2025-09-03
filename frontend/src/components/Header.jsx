@@ -3,6 +3,7 @@ import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import { useAuth } from '../context/AuthContext'
 import { logoutUser } from '../utils/api'
+import { useNavigate } from 'react-router-dom' // ✅ Added
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -10,12 +11,13 @@ function classNames(...classes) {
 
 export default function Header() {
   const { user, setUser } = useAuth()
+  const navigate = useNavigate() // ✅ Added
 
   const handleLogout = async () => {
     try {
       await logoutUser()    
       setUser(null)         
-      window.location.href = '/login'
+      navigate('/login') // ✅ Replaced window.location.href
     } catch (error) {
       console.error('Logout error:', error)
     }
