@@ -11,6 +11,16 @@ export default function GoogleLogin({ text = 'Continue with Google' }) {
     script.src = 'https://accounts.google.com/gsi/client'
     script.async = true
     script.defer = true
+
+    script.onload = () => {
+      if (window.google) {
+        window.google.accounts.id.initialize({
+          client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
+          callback: handleGoogleSignIn
+        })
+      }
+    }
+
     document.body.appendChild(script)
 
     return () => {
@@ -26,15 +36,6 @@ export default function GoogleLogin({ text = 'Continue with Google' }) {
       console.error('Google login error:', error)
     }
   }
-
-  useEffect(() => {
-    if (window.google) {
-      window.google.accounts.id.initialize({
-        client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
-        callback: handleGoogleSignIn
-      })
-    }
-  }, [])
 
   const handleClick = () => {
     if (window.google) {
