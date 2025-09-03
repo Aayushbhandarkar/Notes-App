@@ -87,7 +87,7 @@ Token is used to access protected routes (CRUD notes)
 
 Ayush Bhandarkar
 
-GitHub: [github.com/ayushbhandarkar](https://github.com/Aayushbhandarkar)
+GitHub: https://github.com/Aayushbhandarkar/Notes-App.git
 
 LinkedIn: www.linkedin.com/in/ayush-bhandarkar-555730286
 
